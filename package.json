@@ -22,7 +22,8 @@
     "uuid": "^8.3.2",
     "vite-plugin-pages": "^0.24.3",
     "vue": "^3.2.37",
-    "vue-router": "^4.0.16"
+    "vue-router": "^4.0.16",
+    "vuedraggable": "^4.1.0"
   },
   "devDependencies": {
     "@progress/kendo-licensing": "^1.2.2",

@@ -1,0 +1,7 @@
+fragment Board on Board {
+  id
+  title
+  image {
+    downloadUrl
+  }
+}

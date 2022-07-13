@@ -6,12 +6,19 @@ import BoardDragAndDrop from "../../components/BoardDragAndDrop.vue";
 // const alerts = useAlerts();
 import type { Task } from "@/types";
 import { v4 as uuidv4 } from "uuid";
+import addTaskMutation from '../../graphql/mutations/addTask.mutation.gql'
+import { useMutation } from "@vue/apollo-composable";
 
 const props = defineProps({
   id: String,
 });
 
 const { id: boardId } = toRefs(props);
+
+const { mutate: createTaskOnBoard, onDone: onDoneCreatingTask, onError: onErrorCreatingTask } = useMutation(addTaskMutation)
+
+let taskResolve = (task: Task) => {}
+let taskReject = (message: Error) => {}
 
 const board = ref({
   id: boardId?.value || "1",
@@ -28,17 +35,28 @@ const tasks = ref<Partial<Task>[]>([
 
 async function addTask(task: Task) {
   return new Promise((resolve, reject) => {
-    const taskWithTheId = {
-      ...task,
-      id: uuidv4(),
-    };
-    tasks.value.push(taskWithTheId);
-    resolve(taskWithTheId);
+    taskResolve = resolve
+    taskReject = reject
+    return resolve(createTaskOnBoard({
+      boardId: boardId?.value,
+      ...task
+    }))
   });
 }
 
+onErrorCreatingTask((error) => {
+  taskReject(error)
+  console.error("Some kind of error", error)
+})
+
+onDoneCreatingTask((res) => {
+  taskResolve(res.data.boardUpdate.tasks.items[0])
+  console.log('You added a new task')
+})
+
 const updateBoard = (b) => {
-  board.value = b;
+  console.log(b)
+  board.value.title = b;
   // alerts.success("Board updated!");
 };
 
@@ -50,7 +68,12 @@ const deleteBoardIfConfirmed = () => {
 <template>
   <div>
     <AppPageHeading>
-      {{ board.title }}
+      <input
+        type="text"
+        :value="board.title"
+        @keydown.enter="($event.target as HTMLInputElement).blur()"
+        @blur="updateBoard(($event.target as HTMLInputElement).value)"
+      />
     </AppPageHeading>
     <BoardMenu :board="board" @deleteBoard="deleteBoardIfConfirmed" />
 

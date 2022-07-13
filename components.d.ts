@@ -10,6 +10,8 @@ declare module '@vue/runtime-core' {
     BoardCard: typeof import('./src/components/BoardCard.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    TheDrawer: typeof import('./src/components/TheDrawer.vue')['default']
+    TheNavbar: typeof import('./src/components/TheNavbar.vue')['default']
   }
 }
 

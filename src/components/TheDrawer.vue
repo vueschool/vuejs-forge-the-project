@@ -44,7 +44,7 @@ const items = computed(() =>
     },
   ].map((item) => ({
     ...item,
-    selected: route.path === item.data.path,
+    selected: item.data.path ? route.path.startsWith(item.data.path) : false,
   }))
 );
 

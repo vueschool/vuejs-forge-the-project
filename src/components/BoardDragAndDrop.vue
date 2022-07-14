@@ -11,7 +11,7 @@ const alerts = useAlerts();
 const props = defineProps<{
   board: Board;
   tasks: Task[];
-  addTask(task: Partial<Task>): Task;
+  addTask(task: Partial<Task>): Promise<Task>;
 }>();
 
 // events
@@ -22,7 +22,11 @@ const emit = defineEmits<{
 // local data
 const tasks = reactive(cloneDeep(props.tasks));
 const board = reactive(cloneDeep(props.board));
-const columns = reactive<Column[]>(JSON.parse(board.order as string));
+const columns = reactive<Column[]>(
+  typeof board.order === "string"
+    ? JSON.parse(board.order as string)
+    : board.order
+);
 
 // methods
 function addColumn() {
@@ -36,7 +40,7 @@ function addColumn() {
 watch(columns, () => {
   emit(
     "update",
-    cloneDeep({ ...board, order: JSON.stringify(toRaw(columns)) })
+    cloneDeep({ ...props.board, order: JSON.stringify(toRaw(columns)) })
   );
 });
 
@@ -53,7 +57,7 @@ async function addTask({ column, title }: { column: Column; title: string }) {
 </script>
 
 <template>
-  <div class="flex py-12 items-start">
+  <div class="flex py-12 items-start max-w-full overflow-x-auto">
     <draggable
       :list="columns"
       group="columns"
@@ -65,11 +69,19 @@ async function addTask({ column, title }: { column: Column; title: string }) {
           class="column bg-gray-100 flex flex-col justify-between rounded-lg px-3 py-3 rounded mr-4 w-[300px]"
         >
           <div>
-            <h3>{{ column.title }}</h3>
+            <h3>
+              <input
+                type="text"
+                :value="column.title"
+                class="bg-transparent mb-2"
+                @keydown.enter="($event.target as HTMLInputElement).blur()"
+                @blur="column.title = ($event.target as HTMLInputElement).value"
+              />
+            </h3>
             <draggable
               :list="column.taskIds"
               group="tasks"
-              item-key="uid"
+              item-key="id"
               :animation="200"
               ghost-class="ghost-card"
               class="min-h-[400px]"
@@ -94,6 +106,11 @@ async function addTask({ column, title }: { column: Column; title: string }) {
         </div>
       </template>
     </draggable>
-    <button class="text-gray-500" @click="addColumn">New Column +</button>
+    <button
+      class="text-gray-500 whitespace-nowrap pr-10 block"
+      @click="addColumn"
+    >
+      New Column +
+    </button>
   </div>
 </template>

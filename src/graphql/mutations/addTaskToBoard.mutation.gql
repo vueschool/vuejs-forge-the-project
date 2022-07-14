@@ -1,0 +1,17 @@
+mutation addTaskToBoard($boardId: ID!, $title: String!, $type: String) {
+  boardUpdate(
+    filter: { id: $boardId }
+    data: { tasks: { create: [{ title: $title, type: $type }] } }
+  ) {
+    id
+    tasks(last: 1) {
+      items {
+        id
+        title
+        createdAt
+        updatedAt
+        dueAt
+      }
+    }
+  }
+}

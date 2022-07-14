@@ -10,7 +10,7 @@ const emit = defineEmits<{
 }>();
 const handleActivate = () => {
   active.value = true;
-  nextTick(() => input.value.focus());
+  nextTick(() => input.value?.focus());
 };
 const handleEnter = () => {
   emit("create", value.value);

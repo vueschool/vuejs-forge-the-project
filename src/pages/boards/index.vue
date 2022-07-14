@@ -1,11 +1,9 @@
 <script setup lang="ts">
 import { useAlerts } from "@/stores/alerts";
-import type { Board } from "@/types";
-import { ref } from "vue";
 import boardsQuery from "@/graphql/queries/boards.query.gql";
 import createBoardMutation from "@/graphql/mutations/createBoard.mutation.gql";
 import { useMutation, useQuery } from "@vue/apollo-composable";
-import { computed } from "@vue/reactivity";
+import { computed } from "vue";
 
 const { result, loading, onError } = useQuery(boardsQuery);
 const boards = computed(() => result.value?.boardsList?.items || []);
@@ -71,5 +69,5 @@ const getCoolGradient = (index) => {
       <span>New Board +</span>
     </button>
   </div>
-  <p v-if="loading">Loading...</p>
+  <AppLoader v-if="loading" :overlay="true" />
 </template>

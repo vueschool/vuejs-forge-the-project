@@ -1,0 +1,5 @@
+mutation deleteBoard($id: ID!) {
+  boardDelete(filter: { id: $id }, force: true) {
+    success
+  }
+}

@@ -11,7 +11,7 @@ const alerts = useAlerts();
 const props = defineProps<{
   board: Board;
   tasks: Task[];
-  addTask(task: Partial<Task>): Task;
+  addTask(task: Partial<Task>): Promise<Task>;
 }>();
 
 // events
@@ -22,7 +22,11 @@ const emit = defineEmits<{
 // local data
 const tasks = reactive(cloneDeep(props.tasks));
 const board = reactive(cloneDeep(props.board));
-const columns = reactive<Column[]>(JSON.parse(board.order as string));
+const columns = reactive<Column[]>(
+  typeof board.order === "string"
+    ? JSON.parse(board.order as string)
+    : board.order
+);
 
 // methods
 function addColumn() {
@@ -69,7 +73,7 @@ async function addTask({ column, title }: { column: Column; title: string }) {
             <draggable
               :list="column.taskIds"
               group="tasks"
-              item-key="uid"
+              item-key="id"
               :animation="200"
               ghost-class="ghost-card"
               class="min-h-[400px]"

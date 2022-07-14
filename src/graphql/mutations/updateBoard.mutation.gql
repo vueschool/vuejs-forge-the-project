@@ -1,0 +1,7 @@
+mutation updateBoard($id: ID, $order: JSON, $title: String) {
+  boardUpdate(filter: { id: $id }, data: { order: $order, title: $title }) {
+    id
+    title
+    order
+  }
+}

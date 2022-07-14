@@ -5,7 +5,7 @@ import { useRouter } from "vue-router";
 
 import { computed, ref } from "vue";
 
-// const router = useRouter();
+const router = useRouter();
 const selectedId = ref(0);
 
 const expanded = useLocalStorage("vue-forge-drawer-expanded", true);
@@ -13,10 +13,9 @@ const expandedIcon = computed(() =>
   expanded.value ? "k-i-arrow-chevron-left" : "k-i-arrow-chevron-right"
 );
 const items = computed(() => [
-  {
+    {
     text: "Boards",
     icon: "k-i-set-column-position",
-    selected: true,
     data: {
       path: "/",
     },
@@ -42,10 +41,15 @@ const items = computed(() => [
       action: () => (expanded.value = !expanded.value),
     },
   },
-]);
+].map((item, index) => ({
+  ...item,
+  selected: index === selectedId.value,
+  }))
+);
 
 function onSelect({ itemIndex }: { itemIndex: number }) {
   const item = items.value[itemIndex];
+  selectedId.value = itemIndex;
   if (item.data.path) router.push(item.data.path);
   if (typeof item.data.action === "function") item.data.action();
 }

@@ -40,7 +40,7 @@ function addColumn() {
 watch(columns, () => {
   emit(
     "update",
-    cloneDeep({ ...board, order: JSON.stringify(toRaw(columns)) })
+    cloneDeep({ ...props.board, order: JSON.stringify(toRaw(columns)) })
   );
 });
 
@@ -69,7 +69,15 @@ async function addTask({ column, title }: { column: Column; title: string }) {
           class="column bg-gray-100 flex flex-col justify-between rounded-lg px-3 py-3 rounded mr-4 w-[300px]"
         >
           <div>
-            <h3>{{ column.title }}</h3>
+            <h3>
+              <input
+                type="text"
+                :value="column.title"
+                class="bg-transparent mb-2"
+                @keydown.enter="($event.target as HTMLInputElement).blur()"
+                @blur="column.title = ($event.target as HTMLInputElement).value"
+              />
+            </h3>
             <draggable
               :list="column.taskIds"
               group="tasks"

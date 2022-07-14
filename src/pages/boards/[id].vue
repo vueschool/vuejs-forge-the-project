@@ -36,19 +36,12 @@ const board = computed(() => boardData.value?.board || null);
 const tasks = computed(() => board.value?.tasks?.items);
 
 // handle board updates
-const updatingTitle = ref(false);
 const { mutate: updateBoard, onDone: onBoardUpdated } =
   useMutation(updateBoardMutation);
-onBoardUpdated(() => {
-  if (updatingTitle.value) {
-    alerts.success("Board successfully updated!");
-  }
-});
-const updateBoardTitle = async (title: string) => {
+onBoardUpdated(() => alerts.success("Board successfully updated!"));
+const updateBoardTitle = (title: string) => {
   if (board.value.title === title) return;
-  updatingTitle.value = true;
-  await updateBoard({ id: boardId.value, title });
-  updatingTitle.value = false;
+  updateBoard({ id: boardId.value, title });
 };
 
 //handle delete board
@@ -100,7 +93,6 @@ function addTask(task: Task) {
 }
 
 onErrorCreatingTask((error) => {
-  console.log(error);
   taskReject(error);
   alerts.error("Error creating task");
 });

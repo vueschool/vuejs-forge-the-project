@@ -5,7 +5,7 @@ import { useRouter } from "vue-router";
 
 import { computed, ref } from "vue";
 
-// const router = useRouter();
+const router = useRouter();
 const selectedId = ref(0);
 
 const expanded = useLocalStorage("vue-forge-drawer-expanded", true);
@@ -62,7 +62,7 @@ function onSelect({ itemIndex }: { itemIndex: number }) {
     @select="onSelect"
   >
     <DrawerContent>
-      <div class="px-5">
+      <div class="p-5">
         <router-view />
       </div>
     </DrawerContent>

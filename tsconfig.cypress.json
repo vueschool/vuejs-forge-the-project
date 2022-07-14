@@ -1,0 +1,14 @@
+{
+  "extends": "./tsconfig.app.json",
+  "include": ["src", "**/*.cy.*", "cypress/support/component.ts"],
+  "exclude": [],
+  "files": ["./cypress.d.ts"],
+  "compilerOptions": {
+    "isolatedModules": false,
+    "composite": true,
+    "lib": ["DOM"],
+    "jsx": "preserve",
+    "jsxFactory": "h",
+    "types": ["node", "cypress"],
+  }
+}

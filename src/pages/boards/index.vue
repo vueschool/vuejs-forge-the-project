@@ -63,7 +63,7 @@ const getCoolGradient = (index: number) => {
     >
       <BoardCard
         :board="board"
-        class="transition duration-100 ease-in border rounded-md hover:-rotate-3"
+        class="transition transform duration-100 ease-in border rounded-md hover:-rotate-3"
       />
     </div>
     <button class="text-gray-500" @click="handleBoardCreate">

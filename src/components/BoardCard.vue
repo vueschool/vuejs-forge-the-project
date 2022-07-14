@@ -15,12 +15,11 @@ const randomColor = "#" + Math.floor(Math.random() * 16777215).toString(16);
       <AppImage
         v-if="board.image"
         :src="board.image?.downloadUrl"
-        width="384"
-        class="w-full aspect-video"
+        class="384px aspect-video"
       />
       <div
         v-else
-        class="w-full aspect-video"
+        class="384px aspect-video"
         :style="{ backgroundColor: randomColor }"
       ></div>
       <KCardTitle class="p-2">

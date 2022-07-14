@@ -7,6 +7,7 @@ import { computed, ref } from "vue";
 
 const router = useRouter();
 const route = useRoute();
+const selectedId = ref(0);
 
 const expanded = useLocalStorage("vue-forge-drawer-expanded", true);
 const expandedIcon = computed(() =>

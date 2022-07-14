@@ -1,3 +1,4 @@
+import "./common";
 import { createApp, provide, h } from "vue";
 import { createPinia } from "pinia";
 import TwicPics from "@twicpics/components/vue3";

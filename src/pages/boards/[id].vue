@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { toRefs, computed } from "vue";
+import { toRefs, computed, ref } from "vue";
 import type { Task, Board } from "@/types";
 import { useAlerts } from "@/stores/alerts";
 import { useQuery, useMutation } from "@vue/apollo-composable";
@@ -36,7 +36,20 @@ const board = computed(() => boardData.value?.board || null);
 const tasks = computed(() => board.value?.tasks?.items);
 
 // handle board updates
-const { mutate: updateBoard } = useMutation(updateBoardMutation);
+const updatingTitle = ref(false);
+const { mutate: updateBoard, onDone: onBoardUpdated } =
+  useMutation(updateBoardMutation);
+onBoardUpdated(() => {
+  if (updatingTitle.value) {
+    alerts.success("Board successfully updated!");
+  }
+});
+const updateBoardTitle = async (title: string) => {
+  if (board.value.title === title) return;
+  updatingTitle.value = true;
+  await updateBoard({ id: boardId.value, title });
+  updatingTitle.value = false;
+};
 
 //handle delete board
 const { mutate: deleteBoard, onError: onErrorDeletingBoard } = useMutation(
@@ -100,7 +113,12 @@ onDoneCreatingTask((res) => {
   <div v-if="board">
     <div class="flex justify-between">
       <AppPageHeading>
-        {{ board.title }}
+        <input
+          @keydown.enter="($event.target as HTMLInputElement).blur()"
+          @blur="updateBoardTitle(($event.target as HTMLInputElement).value)"
+          type="text"
+          :value="board.title"
+        />
       </AppPageHeading>
       <BoardMenu :board="board" @deleteBoard="deleteBoardIfConfirmed" />
     </div>

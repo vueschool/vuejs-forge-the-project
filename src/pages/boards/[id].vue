@@ -121,6 +121,8 @@ onDoneCreatingTask((res) => {
       @update="updateBoard"
       :addTask="addTask"
     />
+
+    <RouterView />
   </div>
   <AppLoader v-if="loadingBoard" :overlay="true" />
 </template>

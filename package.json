@@ -16,6 +16,8 @@
   },
   "dependencies": {
     "@apollo/client": "^3.6.9",
+    "@progress/kendo-drawing": "^1.16.3",
+    "@progress/kendo-vue-dateinputs": "^3.4.3",
     "@twicpics/components": "^0.8.2",
     "@vue/apollo-composable": "^4.0.0-alpha.18",
     "@vueuse/core": "^8.9.2",

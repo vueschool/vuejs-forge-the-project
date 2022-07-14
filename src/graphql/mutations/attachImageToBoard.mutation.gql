@@ -1,0 +1,12 @@
+mutation attachImageToBoard($id: ID!, $imageId: ID!) {
+  boardUpdate(
+    filter: { id: $id }
+    data: { image: { reconnect: { id: $imageId } } }
+  ) {
+    id
+    image {
+      id
+      downloadUrl
+    }
+  }
+}

@@ -1,6 +1,6 @@
 {
   "extends": "./tsconfig.app.json",
-  "include": ["**/*.cy.*"],
+  "include": ["src", "**/*.cy.*", "cypress/support/component.ts"],
   "exclude": [],
   "files": ["./cypress.d.ts"],
   "compilerOptions": {
@@ -8,6 +8,7 @@
     "composite": true,
     "lib": ["DOM"],
     "jsx": "preserve",
-    "types": ["cypress"],
+    "jsxFactory": "h",
+    "types": ["node", "cypress"],
   }
 }

@@ -29,9 +29,8 @@ async function handleBoardCreate() {
       title: "My New Board",
     },
   };
-  const res = await createBoard(newBoardPayload);
+  await createBoard(newBoardPayload);
   alerts.success("New Board created!");
-  router.push(`/boards/${res?.data.boardCreate.id}`);
 }
 
 const getCoolGradient = (index: number) => {

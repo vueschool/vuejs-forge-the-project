@@ -16,7 +16,7 @@ const randomColor = "#" + Math.floor(Math.random() * 16777215).toString(16);
         v-if="board.image"
         :src="board.image?.downloadUrl"
         width="384"
-        class="w-full aspect-square"
+        class="w-full aspect-video"
       />
       <div
         v-else

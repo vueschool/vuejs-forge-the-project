@@ -57,7 +57,7 @@ async function addTask({ column, title }: { column: Column; title: string }) {
 </script>
 
 <template>
-  <div class="flex py-12 items-start">
+  <div class="flex py-12 items-start max-w-full overflow-x-auto">
     <draggable
       :list="columns"
       group="columns"
@@ -106,6 +106,11 @@ async function addTask({ column, title }: { column: Column; title: string }) {
         </div>
       </template>
     </draggable>
-    <button class="text-gray-500" @click="addColumn">New Column +</button>
+    <button
+      class="text-gray-500 whitespace-nowrap pr-10 block"
+      @click="addColumn"
+    >
+      New Column +
+    </button>
   </div>
 </template>

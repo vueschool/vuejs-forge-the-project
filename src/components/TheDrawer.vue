@@ -62,7 +62,7 @@ function onSelect({ itemIndex }: { itemIndex: number }) {
     :items="items"
     @select="onSelect"
   >
-    <DrawerContent>
+    <DrawerContent class="max-w-full overflow-hidden">
       <div class="p-5">
         <router-view />
       </div>

@@ -1,6 +1,10 @@
 {
   "name": "vue-forge-boilerplate",
   "version": "0.0.0",
+  "engines": {
+    "npm": ">=8.0.0",
+    "node": ">=18.0.0"
+  },
   "scripts": {
     "dev": "vite",
     "build": "run-p type-check build-only",
@@ -15,11 +19,13 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"
   },
   "dependencies": {
+    "@8base/auth": "^2.6.6",
     "@apollo/client": "^3.6.9",
     "@twicpics/components": "^0.8.2",
     "@vue/apollo-composable": "^4.0.0-alpha.18",
     "@vueuse/core": "^8.9.2",
     "graphql": "^16.5.0",
+    "graphql-request": "^4.3.0",
     "graphql-tag": "^2.12.6",
     "lodash-es": "^4.17.21",
     "pinia": "^2.0.16",
@@ -74,5 +80,10 @@
     "vitest": "^0.15.1",
     "vue-tsc": "^0.38.1",
     "windicss": "^3.5.6"
+  },
+  "overrides": {
+    "graphql-prettier": {
+      "graphql": ">=15.0.0"
+    }
   }
 }

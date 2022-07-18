@@ -7,9 +7,16 @@ export interface Resource8base {
   deletedAt: Date;
 }
 
+export interface Team extends Resource8base {
+  name: string;
+}
+
 export interface User extends Resource8base {
   email: string;
   roles: { items: Role[] };
+  team: {
+    items: Team[];
+  };
 }
 export interface Role {
   name: string;

@@ -102,25 +102,28 @@ onDoneCreatingTask((res) => {
 });
 </script>
 <template>
-  <div v-if="board">
-    <div class="flex justify-between">
-      <AppPageHeading>
-        <input
-          @keydown.enter="($event.target as HTMLInputElement).blur()"
-          @blur="updateBoardTitle(($event.target as HTMLInputElement).value)"
-          type="text"
-          :value="board.title"
-        />
-      </AppPageHeading>
-      <BoardMenu :board="board" @deleteBoard="deleteBoardIfConfirmed" />
-    </div>
+  <div>
+    <div v-if="board">
+      <div class="flex justify-between">
+        <AppPageHeading>
+          <input
+            @keydown.enter="($event.target as HTMLInputElement).blur()"
+            @blur="updateBoardTitle(($event.target as HTMLInputElement).value)"
+            type="text"
+            :value="board.title"
+          />
+        </AppPageHeading>
+        <BoardMenu :board="board" @deleteBoard="deleteBoardIfConfirmed" />
+      </div>
 
-    <BoardDragAndDrop
-      :board="board"
-      :tasks="tasks"
-      @update="updateBoard"
-      :addTask="addTask"
-    />
+      <BoardDragAndDrop
+        :board="board"
+        :tasks="tasks"
+        @update="updateBoard"
+        :addTask="addTask"
+      />
+    </div>
+    <AppLoader v-if="loadingBoard" :overlay="true" />
+    <RouterView />
   </div>
-  <AppLoader v-if="loadingBoard" :overlay="true" />
 </template>

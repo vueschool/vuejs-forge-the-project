@@ -1,0 +1,19 @@
+query task($id: ID!) {
+  task(id: $id) {
+    title
+    description
+    dueAt
+    labels {
+      items {
+        id
+        label
+        color
+      }
+    }
+    comments {
+      items {
+        message
+      }
+    }
+  }
+}

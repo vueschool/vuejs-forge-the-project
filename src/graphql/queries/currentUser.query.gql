@@ -1,0 +1,19 @@
+query currentUser {
+  user {
+    id
+    email
+    firstName
+    lastName
+    team {
+      items {
+        id
+        name
+      }
+    }
+    roles {
+      items {
+        name
+      }
+    }
+  }
+}

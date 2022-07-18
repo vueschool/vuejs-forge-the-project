@@ -19,6 +19,6 @@ const twicpicsURL = computed(() => {
 </script>
 
 <template>
-  <TwicImg :src="twicpicsURL" ratio="none" />
-  <!-- <img /> -->
+  <img v-if="src.startsWith('data:')" :src="src" />
+  <TwicImg v-else :src="twicpicsURL" ratio="none" />
 </template>

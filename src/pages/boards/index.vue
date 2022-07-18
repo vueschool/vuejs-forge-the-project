@@ -4,7 +4,10 @@ import boardsQuery from "@/graphql/queries/boards.query.gql";
 import createBoardMutation from "@/graphql/mutations/createBoard.mutation.gql";
 import { useMutation, useQuery } from "@vue/apollo-composable";
 import { computed } from "vue";
+import { useAuthUserStore } from "@/stores/AuthUserStore";
 import router from "@/router";
+
+const authUserStore = useAuthUserStore();
 
 const { result, loading, onError } = useQuery(boardsQuery);
 const boards = computed(() => result.value?.boardsList?.items || []);
@@ -26,6 +29,7 @@ const { mutate: createBoard } = useMutation(createBoardMutation, () => ({
 async function handleBoardCreate() {
   const newBoardPayload = {
     data: {
+      team: { connect: { id: authUserStore.user?.team.items[0].id } },
       title: "My New Board",
     },
   };

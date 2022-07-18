@@ -1,0 +1,19 @@
+mutation UserSignUp($user: UserCreateInput!, $authProfileId: ID) {
+  userSignUpWithToken(user: $user, authProfileId: $authProfileId) {
+    id
+    email
+    firstName
+    lastName
+    team {
+      items {
+        id
+        name
+      }
+    }
+    roles {
+      items {
+        name
+      }
+    }
+  }
+}

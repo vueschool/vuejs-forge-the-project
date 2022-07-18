@@ -1,7 +1,8 @@
 <script setup lang="ts">
-// import TheNavbar from "./components/TheNavbar.vue";
-// import TheAlerts from "./components/TheAlerts.vue";
-// import TheDrawer from "./components/TheDrawer.vue";
+import { useAuthUserStore } from "./stores/AuthUserStore";
+
+const authUserStore = useAuthUserStore();
+authUserStore.initUser();
 </script>
 
 <template>
